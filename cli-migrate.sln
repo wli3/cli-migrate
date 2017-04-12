@@ -6,6 +6,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.Cli.Sln.In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.ProjectJsonMigration", "cli-migrate\Microsoft.DotNet.ProjectJsonMigration\Microsoft.DotNet.ProjectJsonMigration.csproj", "{713E4D16-B61F-489A-BE64-1DBE603543B3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cli-migrate", "cli-migrate", "{01A43CEF-4BC2-4A92-B4E6-9F89017CBB1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,5 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D242CEB0-2CE6-4B97-8E6E-3AF877439E11} = {01A43CEF-4BC2-4A92-B4E6-9F89017CBB1B}
+		{713E4D16-B61F-489A-BE64-1DBE603543B3} = {01A43CEF-4BC2-4A92-B4E6-9F89017CBB1B}
 	EndGlobalSection
 EndGlobal

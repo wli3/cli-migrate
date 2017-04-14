@@ -18,7 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\cli-migrate\Microsoft.DotNet.Cli.Sln.Internal\Microsoft.DotNet.Cli.Sln.Internal.csproj" />
     <ProjectReference Include="..\..\cli-migrate\Microsoft.DotNet.ProjectJsonMigration\Microsoft.DotNet.ProjectJsonMigration.csproj" />
-    <ProjectReference Include="..\..\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.TestFramework\Microsoft.DotNet.TestFramework.csproj" />
+    <ProjectReference Include="..\..\cli-migrate.Tests\Microsoft.DotNet.TestFramework\Microsoft.DotNet.TestFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20161024-02" />

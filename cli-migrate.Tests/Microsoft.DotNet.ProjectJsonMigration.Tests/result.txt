@@ -1,0 +1,92 @@
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.615, 312634345485, vstest.console.dll, TestPluginCache: Discovering the extensions using extension path.
+TpTrace Information: 0 : 182348, 1, 2017/04/14, 14:19:05.628, 312634384627, vstest.console.dll, AssemblyResolver: Microsoft.VisualStudio.TestPlatform.Extensions.TrxLogger: Resolving assembly.
+TpTrace Information: 0 : 182348, 1, 2017/04/14, 14:19:05.629, 312634387076, vstest.console.dll, AssemblyResolver: Microsoft.VisualStudio.TestPlatform.Extensions.TrxLogger: Resolved assembly. 
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.631, 312634392095, vstest.console.dll, TestPluginCache: Discovered the extensions using extension path ''.
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.631, 312634392437, vstest.console.dll, TestPluginCache: Discoverers are ''.
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.637, 312634413300, vstest.console.dll, TestPluginCache: Executors are ''.
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.637, 312634413531, vstest.console.dll, TestPluginCache: Setting providers are ''.
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.637, 312634413695, vstest.console.dll, TestPluginCache: Loggers are 'logger://Microsoft/TestPlatform/TrxLogger/v2'.
+TpTrace Information: 0 : 182348, 1, 2017/04/14, 14:19:05.642, 312634429794, vstest.console.dll, RunTestsArgumentProcessor:Execute: Test run is starting.
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.647, 312634445822, vstest.console.dll, Using effective platform:X86 effective framework:.NETCoreApp,Version=v2.0
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.650, 312634456653, vstest.console.dll, RunTestsArgumentProcessor:Execute: Queuing Test run.
+TpTrace Information: 0 : 182348, 1, 2017/04/14, 14:19:05.650, 312634457057, vstest.console.dll, TestRequestManager.RunTests: run tests started.
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.652, 312634464569, vstest.console.dll, TestEngine: Initializing Parallel Execution as MaxCpuCount is set to: 1
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.657, 312634478834, vstest.console.dll, TestRunRequest.ExecuteAsync: Creating test run request.
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.657, 312634479591, vstest.console.dll, TestRunRequest.ExecuteAsync: Starting.
+TpTrace Information: 0 : 182348, 1, 2017/04/14, 14:19:05.657, 312634479955, vstest.console.dll, TestRunRequest.ExecuteAsync: Starting run with settings:TestRunCriteria:
+   KeepAlive=False,FrequencyOfRunStatsChangeEvent=10,RunStatsChangeEventTimeout=00:00:01.5000000,TestCaseFilter=,TestExecutorLauncher=
+   Settingsxml=<RunSettings>
+  <RunConfiguration>
+    <ResultsDirectory>C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\TestResults</ResultsDirectory>
+    <TargetPlatform>X86</TargetPlatform>
+    <TargetFrameworkVersion>.NETCoreApp,Version=v2.0</TargetFrameworkVersion>
+  </RunConfiguration>
+</RunSettings>
+
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.657, 312634480066, vstest.console.dll, TestRunRequest.ExecuteAsync: Wait for the first run request is over.
+TpTrace Information: 0 : 182348, 1, 2017/04/14, 14:19:05.658, 312634482762, vstest.console.dll, TestRunRequest.ExecuteAsync: Started.
+TpTrace Verbose: 0 : 182348, 1, 2017/04/14, 14:19:05.658, 312634483095, vstest.console.dll, TestRunRequest.WaitForCompletion: Waiting with timeout -1.
+TpTrace Information: 0 : 182348, 4, 2017/04/14, 14:19:05.658, 312634483186, vstest.console.dll, ProxyParallelExecutionManager: Triggering test run for next source: C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp2.0\Microsoft.DotNet.ProjectJsonMigration.Tests.dll
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.658, 312634483823, vstest.console.dll, ProxyExecutionManager: Test host is non shared. Lazy initialize.
+TpTrace Information: 0 : 182348, 4, 2017/04/14, 14:19:05.681, 312634561664, vstest.console.dll, Listening on port : 64951
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.690, 312634589213, vstest.console.dll, DotnetTestHostmanager: Full path of dotnet.exe is C:\Program Files\dotnet\dotnet.exe
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.690, 312634589938, vstest.console.dll, DotnetTestHostmanager: Adding  --runtimeconfig "C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp2.0\Microsoft.DotNet.ProjectJsonMigration.Tests.runtimeconfig.json" in args
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.690, 312634590313, vstest.console.dll, DotnetTestHostmanager: Adding  --depsfile "C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp2.0\Microsoft.DotNet.ProjectJsonMigration.Tests.deps.json" in args
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.691, 312634592620, vstest.console.dll, DotnetTestHostmanager: Reading file C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp2.0\Microsoft.DotNet.ProjectJsonMigration.Tests.deps.json to get path of testhost.dll
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.707, 312634648410, vstest.console.dll, DotnetTestHostmanager: Relative path of testhost.dll with respect to package folder is microsoft.testplatform.testhost/15.0.0\lib/netstandard1.5/testhost.dll
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.710, 312634658201, vstest.console.dll, DotnetTestHostmanager: Looking for path microsoft.testplatform.testhost/15.0.0\lib/netstandard1.5/testhost.dll in folder C:\Users\wul\Documents\cli-migrate\.nuget\packages
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.711, 312634658720, vstest.console.dll, DotnetTestHostmanager: Full path of testhost.dll is C:\Users\wul\Documents\cli-migrate\.nuget\packages\microsoft.testplatform.testhost/15.0.0\lib/netstandard1.5/testhost.dll
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.711, 312634659363, vstest.console.dll, ProcessHelper: Starting process 'C:\Program Files\dotnet\dotnet.exe' with command line 'exec --runtimeconfig "C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp2.0\Microsoft.DotNet.ProjectJsonMigration.Tests.runtimeconfig.json" --depsfile "C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp2.0\Microsoft.DotNet.ProjectJsonMigration.Tests.deps.json" "C:\Users\wul\Documents\cli-migrate\.nuget\packages\microsoft.testplatform.testhost/15.0.0\lib/netstandard1.5/testhost.dll" --port 64951 --parentprocessid 182348 --diag result.host.17-04-14_14-19-05_68673_4.txt'
+TpTrace Error: 0 : 182348, 6, 2017/04/14, 14:19:05.737, 312634745688, vstest.console.dll, Test host exited with error: A fatal error was encountered. The library 'hostpolicy.dll' required to execute the application was not found in 'C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp2.0\'.
+
+TpTrace Information: 0 : 182348, 4, 2017/04/14, 14:19:05.746, 312634776375, vstest.console.dll, AssemblyResolver: System.Core: Resolving assembly.
+TpTrace Error: 0 : 182348, 4, 2017/04/14, 14:19:05.754, 312634802146, vstest.console.dll, ProxyExecutionManager.StartTestRun: Failed to start test run: System.ArgumentException: Process with an Id of 182352 is not running.
+   at System.Diagnostics.Process.GetProcessById(Int32 processId, String machineName)
+   at System.Diagnostics.Process.GetProcessById(Int32 processId)
+   at Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Hosting.DotnetTestHostManager.LaunchTestHost(TestProcessStartInfo testHostStartInfo)
+   at Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client.ProxyOperationManager.SetupChannel(IEnumerable`1 sources)
+   at Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client.ProxyExecutionManager.InitializeExtensions(IEnumerable`1 sources)
+   at Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client.ProxyExecutionManager.StartTestRun(TestRunCriteria testRunCriteria, ITestRunEventsHandler eventHandler)
+TpTrace Verbose: 0 : 182348, 4, 2017/04/14, 14:19:05.754, 312634802845, vstest.console.dll, TestRunRequest:SendTestRunMessage: Starting.
+TpTrace Information: 0 : 182348, 4, 2017/04/14, 14:19:05.754, 312634803661, vstest.console.dll, TestRunRequest:SendTestRunMessage: Completed.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.944, 313344336775, vstest.console.dll, TestPluginCache: Discovering the extensions using extension path.
+TpTrace Information: 0 : 179444, 1, 2017/04/14, 14:22:38.956, 313344373582, vstest.console.dll, AssemblyResolver: Microsoft.VisualStudio.TestPlatform.Extensions.TrxLogger: Resolving assembly.
+TpTrace Information: 0 : 179444, 1, 2017/04/14, 14:22:38.957, 313344376328, vstest.console.dll, AssemblyResolver: Microsoft.VisualStudio.TestPlatform.Extensions.TrxLogger: Resolved assembly. 
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.958, 313344381797, vstest.console.dll, TestPluginCache: Discovered the extensions using extension path ''.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.959, 313344382421, vstest.console.dll, TestPluginCache: Discoverers are ''.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.959, 313344382601, vstest.console.dll, TestPluginCache: Executors are ''.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.959, 313344382750, vstest.console.dll, TestPluginCache: Setting providers are ''.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.959, 313344382895, vstest.console.dll, TestPluginCache: Loggers are 'logger://Microsoft/TestPlatform/TrxLogger/v2'.
+TpTrace Information: 0 : 179444, 1, 2017/04/14, 14:22:38.965, 313344402802, vstest.console.dll, RunTestsArgumentProcessor:Execute: Test run is starting.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.969, 313344417236, vstest.console.dll, Using effective platform:X86 effective framework:.NETCoreApp,Version=v1.1
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.973, 313344428791, vstest.console.dll, RunTestsArgumentProcessor:Execute: Queuing Test run.
+TpTrace Information: 0 : 179444, 1, 2017/04/14, 14:22:38.973, 313344429301, vstest.console.dll, TestRequestManager.RunTests: run tests started.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.975, 313344435815, vstest.console.dll, TestEngine: Initializing Parallel Execution as MaxCpuCount is set to: 1
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.979, 313344451114, vstest.console.dll, TestRunRequest.ExecuteAsync: Creating test run request.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.980, 313344452244, vstest.console.dll, TestRunRequest.ExecuteAsync: Starting.
+TpTrace Information: 0 : 179444, 1, 2017/04/14, 14:22:38.980, 313344452746, vstest.console.dll, TestRunRequest.ExecuteAsync: Starting run with settings:TestRunCriteria:
+   KeepAlive=False,FrequencyOfRunStatsChangeEvent=10,RunStatsChangeEventTimeout=00:00:01.5000000,TestCaseFilter=,TestExecutorLauncher=
+   Settingsxml=<RunSettings>
+  <RunConfiguration>
+    <ResultsDirectory>C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\TestResults</ResultsDirectory>
+    <TargetPlatform>X86</TargetPlatform>
+    <TargetFrameworkVersion>.NETCoreApp,Version=v1.1</TargetFrameworkVersion>
+  </RunConfiguration>
+</RunSettings>
+
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.980, 313344452852, vstest.console.dll, TestRunRequest.ExecuteAsync: Wait for the first run request is over.
+TpTrace Information: 0 : 179444, 1, 2017/04/14, 14:22:38.981, 313344455811, vstest.console.dll, TestRunRequest.ExecuteAsync: Started.
+TpTrace Verbose: 0 : 179444, 1, 2017/04/14, 14:22:38.981, 313344456107, vstest.console.dll, TestRunRequest.WaitForCompletion: Waiting with timeout -1.
+TpTrace Information: 0 : 179444, 4, 2017/04/14, 14:22:38.981, 313344456213, vstest.console.dll, ProxyParallelExecutionManager: Triggering test run for next source: C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp1.1\Microsoft.DotNet.ProjectJsonMigration.Tests.dll
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:38.981, 313344457087, vstest.console.dll, ProxyExecutionManager: Test host is non shared. Lazy initialize.
+TpTrace Information: 0 : 179444, 4, 2017/04/14, 14:22:39.004, 313344533364, vstest.console.dll, Listening on port : 64998
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:39.013, 313344564042, vstest.console.dll, DotnetTestHostmanager: Full path of dotnet.exe is C:\Program Files\dotnet\dotnet.exe
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:39.013, 313344564574, vstest.console.dll, DotnetTestHostmanager: Adding  --runtimeconfig "C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp1.1\Microsoft.DotNet.ProjectJsonMigration.Tests.runtimeconfig.json" in args
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:39.013, 313344564843, vstest.console.dll, DotnetTestHostmanager: Adding  --depsfile "C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp1.1\Microsoft.DotNet.ProjectJsonMigration.Tests.deps.json" in args
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:39.014, 313344566557, vstest.console.dll, DotnetTestHostmanager: Reading file C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp1.1\Microsoft.DotNet.ProjectJsonMigration.Tests.deps.json to get path of testhost.dll
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:39.030, 313344620819, vstest.console.dll, DotnetTestHostmanager: Relative path of testhost.dll with respect to package folder is microsoft.testplatform.testhost/15.0.0\lib/netstandard1.5/testhost.dll
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:39.033, 313344630214, vstest.console.dll, DotnetTestHostmanager: Looking for path microsoft.testplatform.testhost/15.0.0\lib/netstandard1.5/testhost.dll in folder C:\Users\wul\.nuget\packages
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:39.033, 313344630749, vstest.console.dll, DotnetTestHostmanager: Full path of testhost.dll is C:\Users\wul\.nuget\packages\microsoft.testplatform.testhost/15.0.0\lib/netstandard1.5/testhost.dll
+TpTrace Verbose: 0 : 179444, 4, 2017/04/14, 14:22:39.033, 313344631404, vstest.console.dll, ProcessHelper: Starting process 'C:\Program Files\dotnet\dotnet.exe' with command line 'exec --runtimeconfig "C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp1.1\Microsoft.DotNet.ProjectJsonMigration.Tests.runtimeconfig.json" --depsfile "C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp1.1\Microsoft.DotNet.ProjectJsonMigration.Tests.deps.json" "C:\Users\wul\.nuget\packages\microsoft.testplatform.testhost/15.0.0\lib/netstandard1.5/testhost.dll" --port 64998 --parentprocessid 179444 --diag .\result.host.17-04-14_14-22-39_00933_4.txt'
+TpTrace Error: 0 : 179444, 6, 2017/04/14, 14:22:39.061, 313344725125, vstest.console.dll, Test host exited with error: A fatal error was encountered. The library 'hostpolicy.dll' required to execute the application was not found in 'C:\Users\wul\Documents\cli-migrate\cli-migrate.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests\bin\Debug\netcoreapp1.1\'.
+

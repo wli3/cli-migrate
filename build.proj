@@ -5,11 +5,11 @@
     <MSBuild Projects="cli-migrate.sln" Targets="restore" />
     <MSBuild Projects="cli-migrate.sln" Targets="build" />
     <!--TODO WUL uncomment it-->
-    <!--<Exec Command="dotnet test cli-migrate.Tests/cli-migrate.Tests.csproj -l:trx" />-->
+    <!--<Exec Command="dotnet test test/cli-migrate.Tests.csproj -l:trx" />-->
   </Target>
 
   <Target Name="DoPublish">
-    <MSBuild Projects="cli-migrate/Microsoft.DotNet.ProjectJsonMigration/Microsoft.DotNet.ProjectJsonMigration.csproj" Targets="pack" Properties="NoBuild=true" />
+    <MSBuild Projects="src/Microsoft.DotNet.ProjectJsonMigration/Microsoft.DotNet.ProjectJsonMigration.csproj" Targets="pack" Properties="NoBuild=true" />
   </Target>
 
   <Target Name="MakeVersionProps">

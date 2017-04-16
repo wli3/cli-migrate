@@ -6,37 +6,22 @@
         <CliTargetFramework>netcoreapp2.0</CliTargetFramework>
         <CLIBuildDll>$(RepoRoot)/build_projects/dotnet-cli-build/bin/dotnet-cli-build.dll</CLIBuildDll>
     </PropertyGroup>
-    <Import Condition="Exists('obj/CommitCount.props')" Project="obj/CommitCount.props" />
+
+    <Import Project="build/InitRepo.props" />
+    <Import Condition=" '$(GeneratePropsFile)' != 'true' " Project="$(GitCommitInfoProps)" />
+    <Import Condition=" '$(GeneratePropsFile)' != 'true' " Project="$(HostInfoProps)" />
+    <Import Condition=" '$(GeneratePropsFile)' != 'true' " Project="$(BuildInfoProps)" />
+    <Import Project="build/BranchInfo.props" />
+    <Import Project="build/BundledTools.props" />
+    <Import Project="build/BundledSdks.props" />
+    <Import Project="build/BundledTemplates.props" />
     <Import Project="build/DependencyVersions.props" />
-    <PropertyGroup>
-        <CommitCount Condition="'$(CommitCount)' == ''">0</CommitCount>
-    </PropertyGroup>
-
-  <Import Project="build/InitRepo.props" />
-  <Import Condition=" '$(GeneratePropsFile)' != 'true' " Project="$(GitCommitInfoProps)" />
-  <Import Condition=" '$(GeneratePropsFile)' != 'true' " Project="$(HostInfoProps)" />
-  <Import Condition=" '$(GeneratePropsFile)' != 'true' " Project="$(BuildInfoProps)" />
-
-  <Import Project="build/BranchInfo.props" />
-
-  <Import Project="build/BundledTools.props" />
-  <Import Project="build/BundledSdks.props" />
-  <Import Project="build/BundledTemplates.props" />
-  <Import Project="build/DependencyVersions.props" />
-  <Import Project="build/Version.props" />
-  <Import Project="build/Branding.props" />
-
-  <Import Project="build/FileExtensions.props" />
-  <Import Project="build/InputDirectories.props" />
-  <Import Project="build/MSBuildExtensions.props" />
-  <Import Project="build/OutputDirectories.props" />
-  <Import Project="build/BuildDefaults.props" />
-  <Import Project="build/Stage0.props" />
-  <Import Project="build/CrossGen.props" />
-  <Import Project="build/VersionBadge.props" />
-  <Import Project="build/BundledRuntimes.props" />
-  <Import Project="build/BackwardsCompatibilityRuntimes.props" />
-
-  <Import Project="build/AzureInfo.props" />
-  <Import Project="build/InstallerInfo.props" />
+    <Import Project="build/Version.props" />
+    <Import Project="build/Branding.props" />
+    <Import Project="build/FileExtensions.props" />
+    <Import Project="build/InputDirectories.props" />
+    <Import Project="build/MSBuildExtensions.props" />
+    <Import Project="build/OutputDirectories.props" />
+    <Import Project="build/BuildDefaults.props" />
+    <Import Project="build/Stage0.props" />
 </Project>

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.DotNet.PlatformAbstractions;
+using Microsoft.DotNet.Tools.Tests.Utilities;
 
 namespace Microsoft.DotNet.Tools.Test.Utilities
 {
@@ -58,19 +59,11 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             {
                 if (string.IsNullOrEmpty(s_buildRid))
                 {
-                    var buildInfoPath = Path.Combine(RepoRoot, "artifacts", "obj", "BuildInfo.props");
-                    var root = XDocument.Load(buildInfoPath).Root;
-                    var ns = root.Name.Namespace;
-
-                    s_buildRid = root
-                        .Elements(ns + "PropertyGroup")
-                        .Elements(ns + "Rid")
-                        .FirstOrDefault()
-                        ?.Value;
+                    s_buildRid = RuntimeEnvironment.GetRuntimeIdentifier();
 
                     if (string.IsNullOrEmpty(s_buildRid))
                     {
-                        throw new InvalidOperationException($"Could not find a property named 'Rid' in {buildInfoPath}");
+                        throw new InvalidOperationException($"Could not find a property named 'Rid'");
                     }
                 }
                 

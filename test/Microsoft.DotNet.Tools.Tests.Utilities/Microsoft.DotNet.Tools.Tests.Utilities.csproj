@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
   <PropertyGroup>
     <Description>Microsoft.DotNet.Tools.Tests.Utilities Class Library</Description>
     <TargetFramework>$(CliTargetFramework)</TargetFramework>
@@ -9,11 +8,10 @@
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.4;portable-net451+win8</PackageTargetFallback>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\..\test\Microsoft.DotNet.TestFramework\Microsoft.DotNet.TestFramework.csproj" />
+    <ProjectReference Include="..\Microsoft.DotNet.TestFramework\Microsoft.DotNet.TestFramework.csproj" />
+    <ProjectReference Include="..\Microsoft.DotNet.Cli.Build.Framework\Microsoft.DotNet.Cli.Build.Framework.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="4.18.0" />
     <PackageReference Include="xunit" Version="2.2.0-beta4-build3444" />

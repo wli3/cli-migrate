@@ -42,3 +42,4 @@ PATH="$DOTNET_INSTALL_DIR:$PATH"
 
 dotnet msbuild build.proj /t:MakeVersionProps
 dotnet msbuild build.proj /v:diag /fl /flp:v=diag "${args[@]}"
+dotnet msbuild build.proj /p:GeneratePropsFile=true /t:WriteDynamicPropsToStaticPropsFiles

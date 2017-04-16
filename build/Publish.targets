@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildThisFileDirectory)/publish/FinishBuild.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)/publish/PublishContent.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)/publish/PublishDebian.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)/publish/Badge.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)/publish/Checksum.targets" />
+
+  <!-- PUBLISH_TO_AZURE_BLOB env variable set by CI -->
+  <Target Name="Publish"
+          Condition=" '$(PUBLISH_TO_AZURE_BLOB)' != '' "
+          DependsOnTargets="Init;
+                            Package;
+                            PublishArtifacts;
+                            FinishBuild" />
+
+  <!-- UploadToAzure target comes from Build Tools -->
+  <Target Name="PublishArtifacts"
+          DependsOnTargets="GenerateVersionBadge;
+                            GatherItemsForPattern;
+                            GenerateChecksums;
+                            UploadArtifactsToAzure;
+                            UploadChecksumsToAzure;
+                            PublishDebFilesToDebianRepo;
+                            PublishCliVersionBadge" />
+
+  <Target Name="GatherItemsForPattern">
+    <ItemGroup>
+      <ForPublishing Include="@(GeneratedInstallers)" />
+      <ForPublishing Include="%(GenerateArchivesInputsOutputs.Outputs)" />
+      <ForPublishing Include="$(PackagesDirectory)/Microsoft*.nupkg" Condition=" '$(PUBLISH_NUPKG_TO_AZURE_BLOB)' != '' " />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ForPublishing>
+        <RelativeBlobPath>$(Product)/$(FullNugetVersion)/$([System.String]::Copy('%(Filename)%(Extension)').Replace('\' ,'/'))</RelativeBlobPath>
+      </ForPublishing>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="PublishCliVersionBadge">
+    <ItemGroup>
+      <CliVersionBadgeToUpload Include="$(VersionBadge)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <CliVersionBadgeToUpload>
+        <RelativeBlobPath>$(Product)/$(FullNugetVersion)/$([System.String]::Copy('%(Filename)%(Extension)').Replace('\' ,'/'))</RelativeBlobPath>
+      </CliVersionBadgeToUpload>
+    </ItemGroup>
+
+    <UploadToAzure
+      AccountKey="$(ArtifactCloudDropAccessToken)"
+      AccountName="$(ArtifactCloudDropAccountName)"
+      ContainerName="$(ArtifactContainerName)"
+      Items="@(CliVersionBadgeToUpload)"
+      Overwrite="$(OverwriteOnPublish)" />
+
+    <SetBlobPropertiesBasedOnFileType
+      AccountKey="$(ArtifactCloudDropAccessToken)"
+      AccountName="$(ArtifactCloudDropAccountName)"
+      ContainerName="$(ArtifactContainerName)"
+      Items="@(CliVersionBadgeToUpload)" />
+  </Target>
+</Project>

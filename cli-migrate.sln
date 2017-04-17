@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.TestFramew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.Tools.Tests.Utilities", "test\Microsoft.DotNet.Tools.Tests.Utilities\Microsoft.DotNet.Tools.Tests.Utilities.csproj", "{BD7724B0-D5DB-413D-A970-C655462430B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.DotNet.Cli.Build.Framework", "test\Microsoft.DotNet.Cli.Build.Framework\Microsoft.DotNet.Cli.Build.Framework.csproj", "{75C08F13-990D-4744-9312-C2A000A65CB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.Cli.Build.Framework", "test\Microsoft.DotNet.Cli.Build.Framework\Microsoft.DotNet.Cli.Build.Framework.csproj", "{75C08F13-990D-4744-9312-C2A000A65CB7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-migrate.Tests", "test\dotnet-migrate.Tests\dotnet-migrate.Tests.csproj", "{41898463-DF99-4C10-8910-14FAD5FCD6D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{75C08F13-990D-4744-9312-C2A000A65CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75C08F13-990D-4744-9312-C2A000A65CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75C08F13-990D-4744-9312-C2A000A65CB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{7F8E5DCB-56F1-48E4-B273-DA6203ACA2C9} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
 		{BD7724B0-D5DB-413D-A970-C655462430B3} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
 		{75C08F13-990D-4744-9312-C2A000A65CB7} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
 	EndGlobalSection
 EndGlobal

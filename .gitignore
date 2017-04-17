@@ -40,6 +40,9 @@ cmake/
 # stage0 install directory
 .dotnet
 
+# stage0pj install directory
+.dotnet_stage0PJ
+
 # build tools directory
 build_tools
 

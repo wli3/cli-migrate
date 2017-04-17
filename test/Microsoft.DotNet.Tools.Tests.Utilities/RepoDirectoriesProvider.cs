@@ -67,7 +67,10 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         private string GetPjDotnetPath()
         {
             return new DirectoryInfo(Path.Combine(RepoRoot, ".dotnet_stage0PJ"))
-                .GetFiles("dotnet*").First()
+                .GetDirectories()
+                .First()
+                .GetFiles("dotnet*")
+                .First()
                 .FullName;
         }
     }

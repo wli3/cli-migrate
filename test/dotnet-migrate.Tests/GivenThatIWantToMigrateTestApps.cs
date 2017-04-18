@@ -11,12 +11,8 @@ using System.Linq;
 using Xunit;
 using FluentAssertions;
 using System.IO;
-using Microsoft.DotNet.Tools.Migrate;
 using BuildCommand = Microsoft.DotNet.Tools.Test.Utilities.BuildCommand;
 using System.Runtime.Loader;
-using Newtonsoft.Json.Linq;
-
-using MigrateCommand = Microsoft.DotNet.Tools.Migrate.MigrateCommand;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
@@ -759,7 +755,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             foreach (var dll in runnableDlls)
             {
-                new DotnetCommand(DotnetUnderTest.WithBackwardsCompatibleRuntimes).ExecuteWithCapturedOutput($"\"{dll.FullName}\"").Should().Pass();
+                new DotnetCommand().ExecuteWithCapturedOutput($"\"{dll.FullName}\"").Should().Pass();
             }
         }
 

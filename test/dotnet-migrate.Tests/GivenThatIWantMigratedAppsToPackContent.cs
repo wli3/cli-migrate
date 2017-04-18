@@ -1,23 +1,12 @@
 // Copyright (c) .NET Foundation and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.Build.Construction;
-using Microsoft.DotNet.TestFramework;
-using Microsoft.DotNet.Tools.Common;
 using Microsoft.DotNet.Tools.Test.Utilities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using FluentAssertions;
 using System.IO;
 using System.IO.Compression;
-using Microsoft.DotNet.Tools.Migrate;
-using BuildCommand = Microsoft.DotNet.Tools.Test.Utilities.BuildCommand;
-using System.Runtime.Loader;
-using Newtonsoft.Json.Linq;
-
-using MigrateCommand = Microsoft.DotNet.Tools.Migrate.MigrateCommand;
 
 namespace Microsoft.DotNet.Migration.Tests
 {

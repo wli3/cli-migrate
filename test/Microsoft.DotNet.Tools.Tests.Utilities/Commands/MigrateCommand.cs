@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.DotNet.Cli.CommandLine;
@@ -26,7 +27,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             Console.WriteLine("migrate " + args);
             var resut = MigrateCommandParser.Migrate().Parse("migrate " + args);
             var exitcode = resut["migrate"].Value<MigrateCommand.MigrateCommand>().Execute();
-            return new CommandResult(null, exitcode, "", "");
+            return new CommandResult(new ProcessStartInfo(), exitcode, "", "");
         }
 
         public MigrateTestCommand WithWorkingDirectory(DirectoryInfo withWorkingDirectory)
@@ -77,13 +78,13 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             string outputDirectory,
             string workingDirectory)
         {
-            var result = new NewCommandShim()
+            var result = new NewCommand()
                 .WithWorkingDirectory(workingDirectory)
-                .Execute($"{templateName} -o {outputDirectory} --no-restore");
+                .Execute($"{templateName} -o {outputDirectory} --debug:ephemeral-hive");
 
             if (result.ExitCode != 0)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException(result.StdErr);
             }
         }
     }

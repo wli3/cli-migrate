@@ -47,6 +47,15 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
             bool skipBackup
         )
         {
+            if (solutionFileManipulator == null)
+            {
+                throw new ArgumentNullException(nameof(solutionFileManipulator));
+            }
+            if (dotnetCoreTemplateCreator == null)
+            {
+                throw new ArgumentNullException(nameof(dotnetCoreTemplateCreator));
+            }
+
             _solutionFileManipulator = solutionFileManipulator;
             _dotnetCoreTemplateCreator = dotnetCoreTemplateCreator;
             _templateFile = templateFile;

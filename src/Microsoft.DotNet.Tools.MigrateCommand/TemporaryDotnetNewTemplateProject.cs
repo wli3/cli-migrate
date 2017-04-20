@@ -1,6 +1,7 @@
 ﻿// Copyright (c) .NET Foundation and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using Microsoft.Build.Construction;
 using System.Collections.Generic;
 using System.IO;
@@ -17,13 +18,21 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
         private readonly ICanCreateDotnetCoreTemplate _dotnetCoreTemplateCreator;
 
         public ProjectRootElement MSBuildProject { get; }
-        public string MSBuildProjectPath => Path.Combine(_projectDirectory, c_temporaryDotnetNewMSBuildProjectName + ".csproj");
+
+        public string MSBuildProjectPath => Path.Combine(_projectDirectory,
+            c_temporaryDotnetNewMSBuildProjectName + ".csproj");
 
         public TemporaryDotnetNewTemplateProject(ICanCreateDotnetCoreTemplate dotnetCoreTemplateCreator)
         {
+            if (dotnetCoreTemplateCreator == null)
+            {
+                throw new ArgumentNullException(nameof(dotnetCoreTemplateCreator));
+            }
+            _dotnetCoreTemplateCreator = dotnetCoreTemplateCreator;
+
             _projectDirectory = CreateDotnetNewMSBuild(c_temporaryDotnetNewMSBuildProjectName);
             MSBuildProject = GetMSBuildProject();
-            _dotnetCoreTemplateCreator = dotnetCoreTemplateCreator;
+
         }
 
         public void Clean()

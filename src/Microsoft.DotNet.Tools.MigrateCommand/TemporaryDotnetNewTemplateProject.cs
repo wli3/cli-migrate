@@ -13,9 +13,7 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
     internal class TemporaryDotnetNewTemplateProject
     {
         private const string c_temporaryDotnetNewMSBuildProjectName = "p";
-
         private readonly string _projectDirectory;
-
         private readonly ICommandFactory _dotnetNewCommandFactory;
 
         public ProjectRootElement MSBuildProject { get; }

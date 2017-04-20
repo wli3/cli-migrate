@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Microsoft.DotNet.Tools.MigrateCommand
+﻿namespace Microsoft.DotNet.Tools.MigrateCommand
 {
     public interface ICanManipulateSolutionFile
     {

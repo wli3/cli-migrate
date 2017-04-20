@@ -4,35 +4,49 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Microsoft.DotNet.Cli.CommandLine;
 using Microsoft.DotNet.Cli.Utils;
 using Microsoft.DotNet.Tools.MigrateCommand;
 using NuGet.Frameworks;
+using NuGet.Packaging;
 
 namespace Microsoft.DotNet.Tools.Test.Utilities
 {
     public sealed class MigrateCommand
     {
+        private Tools.MigrateCommand.MigrateCommand _migrateCommand;
+        private string _withWorkingDirectory;
 
         public MigrateCommand()
         {
-            var _migrateCommand = new Tools.MigrateCommand.MigrateCommand();
         }
 
-        public override CommandResult Execute(string args = "")
+        public CommandResult Execute(string args = "")
         {
-            var MigrateCommand = new Tools.MigrateCommand.MigrateCommand();
-            args = $"migrate {args}";
-
-            return base.Execute(args);
+            var resut = MigrateCommandParser.Migrate().Parse("migrate "+ args);
+            var exitcode = resut["migrate"].Value<Tools.MigrateCommand.MigrateCommand>().Execute();
+            return new CommandResult(null, exitcode, "", "");
         }
 
-        public override CommandResult ExecuteWithCapturedOutput(string args = "")
+        public MigrateCommand WithWorkingDirectory(DirectoryInfo withWorkingDirectory)
         {
-            args = $"migrate {args}";
-            return base.ExecuteWithCapturedOutput(args);
+            _withWorkingDirectory = withWorkingDirectory.FullName;
+            return this;
         }
 
-        public class CallStage0SolutionFileManipulator: ICanManipulateSolutionFile
+        public MigrateCommand WithWorkingDirectory(string withWorkingDirectory)
+        {
+            _withWorkingDirectory = withWorkingDirectory;
+            return this;
+        }
+
+        public CommandResult ExecuteWithCapturedOutput(string args = "")
+        {
+            return Execute(args);
+        }
+
+        public class CallStage0DotnetSln: ICanManipulateSolutionFile
         {
             public int Execute(string dotnetPath, string slnPath, string projPath, string commandName)
             {

@@ -33,10 +33,10 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = "TestApp.sln";
 
-            new DotnetCommand()
-                .WithWorkingDirectory(projectDirectory)
-                .Execute($"migrate \"{solutionRelPath}\"")
-                .Should().Pass();
+            new MigrateCommand()
+             .WithWorkingDirectory(projectDirectory)
+             .Execute($"\"{solutionRelPath}\"")
+             .Should().Pass();
 
             SlnFile slnFile = SlnFile.Read(Path.Combine(projectDirectory.FullName, solutionRelPath));
             slnFile.ProductDescription.Should().Be(productDescription);
@@ -64,20 +64,20 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            new DotnetCommand()
-                .WithWorkingDirectory(projectDirectory)
-                .Execute($"migrate \"{solutionRelPath}\"")
-                .Should().Pass();
+            new MigrateCommand()
+             .WithWorkingDirectory(projectDirectory)
+             .Execute($"\"{solutionRelPath}\"")
+             .Should().Pass();
 
             projectDirectory
-                .Should().HaveFiles(new []
+                .Should().HaveFiles(new[]
                     {
                         Path.Combine("TestApp", "TestApp.csproj"),
                         Path.Combine("TestLibrary", "TestLibrary.csproj"),
                         Path.Combine("TestApp", "src", "subdir", "subdir.csproj"),
                         Path.Combine("TestApp", "TestAssets", "TestAsset", "project.json")
                     });
- 
+
             projectDirectory
                 .Should().NotHaveFile(Path.Combine("TestApp", "TestAssets", "TestAsset", "TestAsset.csproj"));
         }
@@ -110,9 +110,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            var cmd = new DotnetCommand()
-                .WithWorkingDirectory(projectDirectory)
-                .ExecuteWithCapturedOutput($"migrate \"{solutionRelPath}\"");
+            var cmd = new MigrateCommand()
+             .WithWorkingDirectory(projectDirectory)
+             .Execute($"\"{solutionRelPath}\"");
 
             cmd.Should().Pass();
 
@@ -144,9 +144,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            var cmd = new DotnetCommand()
-                .WithWorkingDirectory(projectDirectory)
-                .ExecuteWithCapturedOutput($"migrate \"{solutionRelPath}\"");
+            var cmd = new MigrateCommand()
+              .WithWorkingDirectory(projectDirectory)
+              .Execute($"\"{solutionRelPath}\"");
 
             cmd.Should().Pass();
             cmd.StdOut.Should().NotContain("already contains project");
@@ -167,10 +167,10 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .FullName;
 
-            new DotnetCommand()
-                .WithWorkingDirectory(projectDirectory)
-                .Execute($"migrate \"{slnFileName}\"")
-                .Should().Pass();
+            new MigrateCommand()
+ .WithWorkingDirectory(projectDirectory)
+ .Execute($"\"{slnFileName}\"")
+ .Should().Pass();
 
             var slnFile = SlnFile.Read(Path.Combine(projectDirectory, slnFileName));
             var solutionFolders = slnFile.Projects.Where(p => p.TypeGuid == ProjectTypeGuids.SolutionFolderGuid);
@@ -201,10 +201,11 @@ namespace Microsoft.DotNet.Migration.Tests
             var workingDirectory = new DirectoryInfo(Path.Combine(projectDirectory.FullName, "TestApp"));
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            new DotnetCommand()
-                .WithWorkingDirectory(workingDirectory)
-                .Execute($"migrate")
-                .Should().Pass();
+
+            new MigrateCommand()
+            .WithWorkingDirectory(projectDirectory)
+            .Execute()
+            .Should().Pass();
 
             SlnFile slnFile = SlnFile.Read(Path.Combine(projectDirectory.FullName, solutionRelPath));
 
@@ -244,10 +245,10 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            new DotnetCommand()
-                .WithWorkingDirectory(projectDirectory)
-                .Execute($"migrate")
-                .Should().Pass();
+            new MigrateCommand()
+.WithWorkingDirectory(projectDirectory)
+.Execute()
+.Should().Pass();
 
             var slnFile = SlnFile.Read(Path.Combine(projectDirectory.FullName, "FolderHasDifferentName.sln"));
             slnFile.Projects.Count.Should().Be(1);
@@ -265,10 +266,10 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            new DotnetCommand()
-                .WithWorkingDirectory(projectDirectory)
-                .Execute($"migrate \"{solutionRelPath}\"")
-                .Should().Pass();
+            new MigrateCommand()
+ .WithWorkingDirectory(projectDirectory)
+ .Execute($"\"{solutionRelPath}\"")
+ .Should().Pass();
 
             new DotnetCommand()
                 .WithWorkingDirectory(projectDirectory)
@@ -281,7 +282,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Should().Pass();
 
             SlnFile slnFile = SlnFile.Read(Path.Combine(projectDirectory.FullName, solutionRelPath));
-            
+
             var nonSolutionFolderProjects = slnFile.Projects
                 .Where(p => p.TypeGuid != ProjectTypeGuids.SolutionFolderGuid);
 

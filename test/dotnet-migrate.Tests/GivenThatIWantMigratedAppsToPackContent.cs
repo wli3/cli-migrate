@@ -23,11 +23,10 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithEmptyGlobalJson()
                 .Root;
 
-            new TestCommand("dotnet")
-                    .WithForwardingToConsole()
-                    .Execute($"migrate {projectDirectory.FullName}")
-                    .Should()
-                    .Pass();
+            new MigrateCommand()
+ .WithWorkingDirectory(projectDirectory)
+ .Execute($"{projectDirectory.FullName}")
+ .Should().Pass();
 
             var command = new RestoreCommand()
                 .WithWorkingDirectory(projectDirectory)

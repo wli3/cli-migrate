@@ -22,11 +22,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var globalJsonPath = solutionDirectory.GetFile("global.json");
 
-            new TestCommand("dotnet")
-                    .WithForwardingToConsole()
-                    .Execute($"migrate {globalJsonPath.FullName}")
-                    .Should()
-                    .Pass();
+            new MigrateCommand()
+ .Execute($"{globalJsonPath.FullName}")
+ .Should().Pass();
         }
 
         [Fact]
@@ -40,11 +38,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var globalJsonPath = solutionDirectory.GetFile("global.json");
 
-            new TestCommand("dotnet")
-                    .WithForwardingToConsole()
-                    .Execute($"migrate {globalJsonPath.FullName}")
-                    .Should()
-                    .Pass();
+            new MigrateCommand()
+  .Execute($"{globalJsonPath.FullName}")
+  .Should().Pass();
 
             solutionDirectory
                 .Should().HaveFiles(new []
@@ -69,12 +65,10 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var globalJsonPath = solutionDirectory.GetFile("global.json");
 
-            new TestCommand("dotnet")
-                    .WithWorkingDirectory(solutionDirectory)
-                    .WithForwardingToConsole()
-                    .Execute($"migrate global.json")
-                    .Should()
-                    .Pass();
+            new MigrateCommand()
+                 .WithWorkingDirectory(solutionDirectory)
+                .Execute($"global.json")
+                .Should().Pass();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
 {
     public sealed class MigrateCommand : DotnetCommand
     {
-        public override CommandResult Execute(string args="")
+        public override CommandResult Execute(string args = "")
         {
             args = $"migrate {args}";
 

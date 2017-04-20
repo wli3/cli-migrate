@@ -12,7 +12,7 @@ namespace Microsoft.DotNet.Migration.Tests
 {
     public class GivenThatIWantMigratedAppsToPackContent : TestBase
     {
-        [Fact(Skip="Unblocking CI")]
+        [Fact(Skip = "Unblocking CI")]
         public void ItPacksContentForLibraries()
         {
             var projectDirectory = TestAssets
@@ -24,9 +24,10 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root;
 
             new MigrateCommand()
- .WithWorkingDirectory(projectDirectory)
- .Execute($"{projectDirectory.FullName}")
- .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute($"{projectDirectory.FullName}")
+                .Should()
+                .Pass();
 
             var command = new RestoreCommand()
                 .WithWorkingDirectory(projectDirectory)

@@ -29,26 +29,36 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'repository' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'projectUrl' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'licenseUrl' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'iconUrl' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'owners' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'tags' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'releaseNotes' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'requireLicenseAcceptance' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'summary' option in the root is deprecated. Use it in 'packOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'packInclude' option is deprecated. Use 'files' in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'repository' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'projectUrl' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'licenseUrl' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'iconUrl' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'owners' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'tags' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'releaseNotes' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'requireLicenseAcceptance' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'summary' option in the root is deprecated. Use it in 'packOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'packInclude' option is deprecated. Use 'files' in 'packOptions' instead.");
         }
 
         [Fact]
@@ -65,28 +75,33 @@ namespace Microsoft.DotNet.Migration.Tests
                 .ExecuteWithCapturedOutput();
 
             new DotnetCommand()
-                         .WithWorkingDirectory(projectDirectory)
-                         .Execute("restore")
-                         .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("build -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("build -c Debug")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("pack -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("pack -c Debug")
+                .Should()
+                .Pass();
 
             var outputDir = projectDirectory.GetDirectory("bin", "Debug");
-            outputDir.Should().Exist()
+            outputDir.Should()
+                .Exist()
                 .And.HaveFile("PJDeprecatedPack.1.0.0.nupkg");
 
             var outputPackage = outputDir.GetFile("PJDeprecatedPack.1.0.0.nupkg");
 
             var zip = ZipFile.Open(outputPackage.FullName, ZipArchiveMode.Read);
-            zip.Entries.Should().Contain(e => e.FullName == "PJDeprecatedPack.nuspec")
+            zip.Entries.Should()
+                .Contain(e => e.FullName == "PJDeprecatedPack.nuspec")
                 .And.Contain(e => e.FullName == "content/Content1.txt")
                 .And.Contain(e => e.FullName == "content/Content2.txt");
 
@@ -96,20 +111,38 @@ namespace Microsoft.DotNet.Migration.Tests
             // NOTE: Commented out those that are not migrated.
             // https://microsoft.sharepoint.com/teams/netfx/corefx/_layouts/15/WopiFrame.aspx?sourcedoc=%7B0cfbc196-0645-4781-84c6-5dffabd76bee%7D&action=edit&wd=target%28Planning%2FMSBuild%20CLI%20integration%2Eone%7C41D470DD-CF44-4595-8E05-0CE238864B55%2FProject%2Ejson%20Migration%7CA553D979-EBC6-484B-A12E-036E0730864A%2F%29
             var nuspecXml = XDocument.Parse(manifestReader.ReadToEnd());
-            nuspecXml.Descendants().Single(e => e.Name.LocalName == "projectUrl").Value
-                .Should().Be("http://projecturl/");
-            nuspecXml.Descendants().Single(e => e.Name.LocalName == "licenseUrl").Value
-                .Should().Be("http://licenseurl/");
-            nuspecXml.Descendants().Single(e => e.Name.LocalName == "iconUrl").Value
-                .Should().Be("http://iconurl/");
+            nuspecXml.Descendants()
+                .Single(e => e.Name.LocalName == "projectUrl")
+                .Value
+                .Should()
+                .Be("http://projecturl/");
+            nuspecXml.Descendants()
+                .Single(e => e.Name.LocalName == "licenseUrl")
+                .Value
+                .Should()
+                .Be("http://licenseurl/");
+            nuspecXml.Descendants()
+                .Single(e => e.Name.LocalName == "iconUrl")
+                .Value
+                .Should()
+                .Be("http://iconurl/");
             //nuspecXml.Descendants().Single(e => e.Name.LocalName == "owners").Value
             //    .Should().Be("owner1,owner2");
-            nuspecXml.Descendants().Single(e => e.Name.LocalName == "tags").Value
-                .Should().Be("tag1 tag2");
-            nuspecXml.Descendants().Single(e => e.Name.LocalName == "releaseNotes").Value
-                .Should().Be("releaseNotes");
-            nuspecXml.Descendants().Single(e => e.Name.LocalName == "requireLicenseAcceptance").Value
-                .Should().Be("true");
+            nuspecXml.Descendants()
+                .Single(e => e.Name.LocalName == "tags")
+                .Value
+                .Should()
+                .Be("tag1 tag2");
+            nuspecXml.Descendants()
+                .Single(e => e.Name.LocalName == "releaseNotes")
+                .Value
+                .Should()
+                .Be("releaseNotes");
+            nuspecXml.Descendants()
+                .Single(e => e.Name.LocalName == "requireLicenseAcceptance")
+                .Value
+                .Should()
+                .Be("true");
             //nuspecXml.Descendants().Single(e => e.Name.LocalName == "summary").Value
             //    .Should().Be("summary");
 
@@ -133,10 +166,12 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'compilerName' option in the root is deprecated. Use it in 'buildOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'compilationOptions' option is deprecated. Use 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'compilerName' option in the root is deprecated. Use it in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'compilationOptions' option is deprecated. Use 'buildOptions' instead.");
         }
 
         [Fact]
@@ -151,17 +186,20 @@ namespace Microsoft.DotNet.Migration.Tests
             new MigrateCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
-                 .Should().Pass();
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("restore")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("build -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("build -c Debug")
+                .Should()
+                .Pass();
         }
 
         [Fact]
@@ -179,14 +217,18 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'content' option is deprecated. Use 'publishOptions' to publish or 'copyToOutput' in 'buildOptions' to copy to build output instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'contentExclude' option is deprecated. Use 'publishOptions' to publish or 'copyToOutput' in 'buildOptions' to copy to build output instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'contentFiles' option is deprecated. Use 'publishOptions' to publish or 'copyToOutput' in 'buildOptions' to copy to build output instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'contentBuiltIn' option is deprecated. Use 'publishOptions' to publish or 'copyToOutput' in 'buildOptions' to copy to build output instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'content' option is deprecated. Use 'publishOptions' to publish or 'copyToOutput' in 'buildOptions' to copy to build output instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'contentExclude' option is deprecated. Use 'publishOptions' to publish or 'copyToOutput' in 'buildOptions' to copy to build output instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'contentFiles' option is deprecated. Use 'publishOptions' to publish or 'copyToOutput' in 'buildOptions' to copy to build output instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'contentBuiltIn' option is deprecated. Use 'publishOptions' to publish or 'copyToOutput' in 'buildOptions' to copy to build output instead.");
         }
 
         [Fact]
@@ -200,48 +242,54 @@ namespace Microsoft.DotNet.Migration.Tests
                 .GetDirectory("project");
 
             new MigrateCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute()
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute()
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("restore")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("build -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("build -c Debug")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("publish -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("publish -c Debug")
+                .Should()
+                .Pass();
 
             var outputDir = projectDirectory.GetDirectory("bin", "Debug", "netcoreapp1.1");
-            outputDir.Should().Exist()
+            outputDir.Should()
+                .Exist()
                 .And.HaveFiles(new[]
-                    {
-                        "ContentFile1.txt1",
-                        "ContentFile2.txt1",
-                        "ContentFileBuiltIn1.txt1",
-                        "ContentFileBuiltIn2.txt1",
-                        "IncludeThis.txt",
-                    });
+                {
+                    "ContentFile1.txt1",
+                    "ContentFile2.txt1",
+                    "ContentFileBuiltIn1.txt1",
+                    "ContentFileBuiltIn2.txt1",
+                    "IncludeThis.txt",
+                });
             Directory.Exists(Path.Combine(outputDir.FullName, "ExcludeThis1.txt")).Should().BeFalse();
             Directory.Exists(Path.Combine(outputDir.FullName, "ExcludeThis2.txt")).Should().BeFalse();
 
             var publishDir = projectDirectory.GetDirectory("bin", "Debug", "netcoreapp1.1", "publish");
-            publishDir.Should().Exist()
+            publishDir.Should()
+                .Exist()
                 .And.HaveFiles(new[]
-                    {
-                        "ContentFile1.txt1",
-                        "ContentFile2.txt1",
-                        "ContentFileBuiltIn1.txt1",
-                        "ContentFileBuiltIn2.txt1",
-                        "IncludeThis.txt",
-                    });
+                {
+                    "ContentFile1.txt1",
+                    "ContentFile2.txt1",
+                    "ContentFileBuiltIn1.txt1",
+                    "ContentFileBuiltIn2.txt1",
+                    "IncludeThis.txt",
+                });
             Directory.Exists(Path.Combine(publishDir.FullName, "ExcludeThis1.txt")).Should().BeFalse();
             Directory.Exists(Path.Combine(publishDir.FullName, "ExcludeThis2.txt")).Should().BeFalse();
         }
@@ -261,10 +309,12 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'compile' option is deprecated. Use 'compile' in 'buildOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'compileFiles' option is deprecated. Use 'compile' in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'compile' option is deprecated. Use 'compile' in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'compileFiles' option is deprecated. Use 'compile' in 'buildOptions' instead.");
         }
 
         [Fact]
@@ -280,17 +330,20 @@ namespace Microsoft.DotNet.Migration.Tests
             new MigrateCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
-                 .Should().Pass();
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("restore")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("build -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("build -c Debug")
+                .Should()
+                .Pass();
         }
 
         [Fact]
@@ -308,8 +361,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'compileBuiltIn' option is deprecated. Use 'compile' in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'compileBuiltIn' option is deprecated. Use 'compile' in 'buildOptions' instead.");
         }
 
         [Fact]
@@ -325,12 +379,14 @@ namespace Microsoft.DotNet.Migration.Tests
             new MigrateCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
-                 .Should().Pass();
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("restore")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             //Issue: https://github.com/dotnet/cli/issues/5467
             //new DotnetCommand()
@@ -354,8 +410,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'compileExclude' option is deprecated. Use 'compile' in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'compileExclude' option is deprecated. Use 'compile' in 'buildOptions' instead.");
         }
 
         [Fact]
@@ -370,17 +427,20 @@ namespace Microsoft.DotNet.Migration.Tests
             new MigrateCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
-                 .Should().Pass();
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("restore")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("build -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("build -c Debug")
+                .Should()
+                .Pass();
         }
 
         [Fact]
@@ -399,10 +459,12 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'resource' option is deprecated. Use 'embed' in 'buildOptions' instead.");
-            cmd.StdOut.Should().Contain(
-                "The 'resourceFiles' option is deprecated. Use 'embed' in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'resource' option is deprecated. Use 'embed' in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'resourceFiles' option is deprecated. Use 'embed' in 'buildOptions' instead.");
         }
 
         [Fact]
@@ -418,17 +480,20 @@ namespace Microsoft.DotNet.Migration.Tests
             new MigrateCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
-                 .Should().Pass();
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("restore")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("build -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("build -c Debug")
+                .Should()
+                .Pass();
 
             if (!EnvironmentInfo.HasSharedFramework("netcoreapp1.1"))
             {
@@ -437,8 +502,8 @@ namespace Microsoft.DotNet.Migration.Tests
             }
 
             var cmd = new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .ExecuteWithCapturedOutput("run -c Debug");
+                .WithWorkingDirectory(projectDirectory)
+                .ExecuteWithCapturedOutput("run -c Debug");
             cmd.Should().Pass();
             cmd.StdOut.Should().Contain("3 Resources Found:");
         }
@@ -459,8 +524,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'resourceBuiltIn' option is deprecated. Use 'embed' in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'resourceBuiltIn' option is deprecated. Use 'embed' in 'buildOptions' instead.");
         }
 
         [Fact]
@@ -476,17 +542,20 @@ namespace Microsoft.DotNet.Migration.Tests
             new MigrateCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
-                .Should().Pass();
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("restore")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("build -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("build -c Debug")
+                .Should()
+                .Pass();
 
             if (!EnvironmentInfo.HasSharedFramework("netcoreapp1.1"))
             {
@@ -495,8 +564,8 @@ namespace Microsoft.DotNet.Migration.Tests
             }
 
             var cmd = new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .ExecuteWithCapturedOutput("run -c Debug");
+                .WithWorkingDirectory(projectDirectory)
+                .ExecuteWithCapturedOutput("run -c Debug");
             cmd.Should().Pass();
             // Issue: https://github.com/dotnet/cli/issues/5467
             //cmd.StdOut.Should().Contain("2 Resources Found:");
@@ -517,8 +586,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
             cmd.Should().Pass();
 
-            cmd.StdOut.Should().Contain(
-                "The 'resourceExclude' option is deprecated. Use 'embed' in 'buildOptions' instead.");
+            cmd.StdOut.Should()
+                .Contain(
+                    "The 'resourceExclude' option is deprecated. Use 'embed' in 'buildOptions' instead.");
         }
 
         [Fact]
@@ -535,14 +605,16 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Execute();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("restore")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("restore")
+                .Should()
+                .Pass();
 
             new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .Execute("build -c Debug")
-                 .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute("build -c Debug")
+                .Should()
+                .Pass();
 
             if (!EnvironmentInfo.HasSharedFramework("netcoreapp1.1"))
             {
@@ -551,8 +623,8 @@ namespace Microsoft.DotNet.Migration.Tests
             }
 
             var cmd = new DotnetCommand()
-                 .WithWorkingDirectory(projectDirectory)
-                 .ExecuteWithCapturedOutput("run -c Debug");
+                .WithWorkingDirectory(projectDirectory)
+                .ExecuteWithCapturedOutput("run -c Debug");
             cmd.Should().Pass();
             cmd.StdOut.Should().Contain("0 Resources Found:");
         }

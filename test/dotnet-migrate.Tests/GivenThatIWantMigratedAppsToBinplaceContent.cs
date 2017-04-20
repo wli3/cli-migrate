@@ -9,7 +9,7 @@ namespace Microsoft.DotNet.Migration.Tests
 {
     public class GivenThatIWantMigratedAppsToBinplaceContent : TestBase
     {
-        [Fact(Skip="Unblocking CI")]
+        [Fact(Skip = "Unblocking CI")]
         public void ItBinplacesContentOnBuildForConsoleApps()
         {
             var projectDirectory = TestAssets
@@ -21,9 +21,10 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root;
 
             new MigrateCommand()
- .WithWorkingDirectory(projectDirectory)
- .Execute($"{projectDirectory.FullName}")
- .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute($"{projectDirectory.FullName}")
+                .Should()
+                .Pass();
 
 
             var command = new RestoreCommand()
@@ -43,7 +44,7 @@ namespace Microsoft.DotNet.Migration.Tests
             outputDir.GetDirectory("dir").Should().Exist().And.HaveFile("mappingfile.txt");
         }
 
-        [Fact(Skip="Unblocking CI")]
+        [Fact(Skip = "Unblocking CI")]
         public void ItBinplacesContentOnPublishForConsoleApps()
         {
             var projectDirectory = TestAssets
@@ -55,9 +56,10 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root;
 
             new MigrateCommand()
- .WithWorkingDirectory(projectDirectory)
- .Execute($"{projectDirectory.FullName}")
- .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute($"{projectDirectory.FullName}")
+                .Should()
+                .Pass();
 
             var command = new RestoreCommand()
                 .WithWorkingDirectory(projectDirectory)
@@ -76,7 +78,7 @@ namespace Microsoft.DotNet.Migration.Tests
             publishDir.GetDirectory("dir").Should().Exist().And.HaveFile("mappingfile.txt");
         }
 
-        [Fact(Skip="CI does not have NPM, which is required for the publish of this app.")]
+        [Fact(Skip = "CI does not have NPM, which is required for the publish of this app.")]
         public void ItBinplacesContentOnPublishForWebApps()
         {
             var projectDirectory = TestAssets
@@ -88,9 +90,10 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root;
 
             new MigrateCommand()
- .WithWorkingDirectory(projectDirectory)
- .Execute($"{projectDirectory.FullName}")
- .Should().Pass();
+                .WithWorkingDirectory(projectDirectory)
+                .Execute($"{projectDirectory.FullName}")
+                .Should()
+                .Pass();
 
             var command = new RestoreCommand()
                 .WithWorkingDirectory(projectDirectory)

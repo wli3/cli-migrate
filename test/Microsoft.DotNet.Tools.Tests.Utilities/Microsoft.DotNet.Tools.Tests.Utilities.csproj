@@ -9,6 +9,7 @@
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.4;portable-net451+win8</PackageTargetFallback>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Microsoft.DotNet.Tools.MigrateCommand\Microsoft.DotNet.Tools.MigrateCommand.csproj" />
     <ProjectReference Include="..\Microsoft.DotNet.TestFramework\Microsoft.DotNet.TestFramework.csproj" />
     <ProjectReference Include="..\Microsoft.DotNet.Cli.Build.Framework\Microsoft.DotNet.Cli.Build.Framework.csproj" />
   </ItemGroup>

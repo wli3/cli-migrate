@@ -13,29 +13,29 @@ using NuGet.Packaging;
 
 namespace Microsoft.DotNet.Tools.Test.Utilities
 {
-    public sealed class MigrateCommand
+    public sealed class MigrateTestCommand
     {
-        private Tools.MigrateCommand.MigrateCommand _migrateCommand;
         private string _withWorkingDirectory;
 
-        public MigrateCommand()
+        public MigrateTestCommand()
         {
         }
 
         public CommandResult Execute(string args = "")
         {
-            var resut = MigrateCommandParser.Migrate().Parse("migrate "+ args);
-            var exitcode = resut["migrate"].Value<Tools.MigrateCommand.MigrateCommand>().Execute();
+            Console.WriteLine("migrate " + args);
+            var resut = MigrateCommandParser.Migrate().Parse("migrate " + args);
+            var exitcode = resut["migrate"].Value<MigrateCommand.MigrateCommand>().Execute();
             return new CommandResult(null, exitcode, "", "");
         }
 
-        public MigrateCommand WithWorkingDirectory(DirectoryInfo withWorkingDirectory)
+        public MigrateTestCommand WithWorkingDirectory(DirectoryInfo withWorkingDirectory)
         {
             _withWorkingDirectory = withWorkingDirectory.FullName;
             return this;
         }
 
-        public MigrateCommand WithWorkingDirectory(string withWorkingDirectory)
+        public MigrateTestCommand WithWorkingDirectory(string withWorkingDirectory)
         {
             _withWorkingDirectory = withWorkingDirectory;
             return this;
@@ -46,17 +46,33 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             return Execute(args);
         }
 
-        public class CallStage0DotnetSln: ICanManipulateSolutionFile
+        public class CallStage0DotnetSlnToManipulateSolutionFile : ICanManipulateSolutionFile
         {
-            public int Execute(string dotnetPath, string slnPath, string projPath, string commandName)
+            public void AddProjectToSolution(string solutionFilePath, string projectFilePath)
             {
-                return new DotnetCommand().Execute($"sln {slnPath} {commandName} {projPath}").ExitCode;
+                var exitCode = new DotnetCommand().Execute($"sln {solutionFilePath} add {projectFilePath}").ExitCode;
+
+                if (exitCode != 0)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+
+            public void RemoveProjectFromSolution(string solutionFilePath, string projectFilePath)
+            {
+                var exitCode = new DotnetCommand().Execute($"sln {solutionFilePath} remove {projectFilePath}").ExitCode;
+
+                if (exitCode != 0)
+                {
+                    throw new InvalidOperationException();
+                }
             }
         }
 
         public class CallStage0DotnetNewCommandFactory : ICommandFactory
         {
-            public ICommand Create(string commandName, IEnumerable<string> args, NuGetFramework framework = null, string configuration = "Debug")
+            public ICommand Create(string commandName, IEnumerable<string> args, NuGetFramework framework = null,
+                string configuration = "Debug")
             {
                 return new Stage0DotnetNew(args);
             }
@@ -99,12 +115,14 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
                     throw new NotImplementedException();
                 }
 
-                public ICommand ForwardStdOut(TextWriter to = null, bool onlyIfVerbose = false, bool ansiPassThrough = true)
+                public ICommand ForwardStdOut(TextWriter to = null, bool onlyIfVerbose = false,
+                    bool ansiPassThrough = true)
                 {
                     throw new NotImplementedException();
                 }
 
-                public ICommand ForwardStdErr(TextWriter to = null, bool onlyIfVerbose = false, bool ansiPassThrough = true)
+                public ICommand ForwardStdErr(TextWriter to = null, bool onlyIfVerbose = false,
+                    bool ansiPassThrough = true)
                 {
                     throw new NotImplementedException();
                 }

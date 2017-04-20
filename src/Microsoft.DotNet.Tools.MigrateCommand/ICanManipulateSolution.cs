@@ -2,6 +2,8 @@
 {
     public interface ICanManipulateSolutionFile
     {
-        int Execute(string dotnetPath, string slnPath, string projPath, string commandName);
+        void AddProjectToSolution(string solutionFilePath, string projectFilePath);
+
+        void RemoveProjectFromSolution(string solutionFilePath, string projectFilePath);
     }
 }

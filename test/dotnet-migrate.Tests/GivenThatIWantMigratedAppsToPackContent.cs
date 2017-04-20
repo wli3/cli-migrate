@@ -23,7 +23,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithEmptyGlobalJson()
                 .Root;
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute($"{projectDirectory.FullName}")
                 .Should()

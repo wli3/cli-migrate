@@ -33,7 +33,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = "TestApp.sln";
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute($"\"{solutionRelPath}\"")
                 .Should()
@@ -65,7 +65,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute($"\"{solutionRelPath}\"")
                 .Should()
@@ -114,7 +114,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute($"\"{solutionRelPath}\"");
 
@@ -151,7 +151,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute($"\"{solutionRelPath}\"");
 
@@ -174,7 +174,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .FullName;
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute($"\"{slnFileName}\"")
                 .Should()
@@ -210,7 +210,7 @@ namespace Microsoft.DotNet.Migration.Tests
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -256,7 +256,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -279,7 +279,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute($"\"{solutionRelPath}\"")
                 .Should()

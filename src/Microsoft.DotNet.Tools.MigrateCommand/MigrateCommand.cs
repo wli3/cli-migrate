@@ -190,12 +190,12 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
 
             foreach (var csprojFile in csprojFilesToAdd)
             {
-                RunDotnetSlnCommand(slnFile.FullPath, csprojFile, "add");
+                _solutionFileManipulator.AddProjectToSolution(slnFile.FullPath, csprojFile);
             }
 
             foreach (var xprojFile in xprojFilesToRemove)
             {
-                RunDotnetSlnCommand(slnFile.FullPath, xprojFile, "remove");
+                _solutionFileManipulator.RemoveProjectFromSolution(slnFile.FullPath, xprojFile);
             }
         }
 
@@ -217,15 +217,6 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
             }
 
             slnFile.RemoveEmptySolutionFolders();
-        }
-
-        private void RunDotnetSlnCommand(string slnPath, string projPath, string commandName)
-        {
-            var dotnetPath = Path.Combine(AppContext.BaseDirectory, "dotnet.dll");
-            _solutionFileManipulator.Execute(dotnetPath: dotnetPath, 
-                slnPath: slnPath, 
-                projPath: projPath, 
-                commandName: commandName);
         }
 
         private void MoveProjectJsonArtifactsToBackup(MigrationReport migrationReport)

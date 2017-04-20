@@ -28,7 +28,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var migratableArtifacts = GetProjectJsonArtifacts(testRoot);
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(testRoot)
                 .Execute()
                 .Should()
@@ -58,7 +58,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var migratableArtifacts = GetProjectJsonArtifacts(testRoot);
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(testRoot)
                 .Execute()
                 .Should()
@@ -88,7 +88,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var migratableArtifacts = GetProjectJsonArtifacts(testRoot);
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(testRoot)
                 .Execute()
                 .Should()
@@ -114,7 +114,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var migratableArtifacts = GetProjectJsonArtifacts(testRoot);
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(testRoot)
                 .Execute("--skip-backup")
                 .Should()

@@ -533,7 +533,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 errorMessage = $"No project.json file found in '{projectDirectory.FullName}'";
             }
 
-            var result = new MigrateCommand()
+            var result = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput($"{argstr}");
 
@@ -871,7 +871,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
         private void MigrateProject(params string[] migrateArgs)
         {
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .Execute($"{string.Join(" ", migrateArgs)}")
                 .Should()
                 .Pass();

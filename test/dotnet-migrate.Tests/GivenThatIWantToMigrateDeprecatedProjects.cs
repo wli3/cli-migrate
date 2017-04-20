@@ -23,7 +23,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -70,7 +70,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -160,7 +160,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -183,7 +183,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -211,7 +211,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -241,7 +241,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .GetDirectory("project");
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -303,7 +303,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -327,7 +327,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .GetDirectory("project");
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -355,7 +355,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -376,7 +376,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .GetDirectory("project");
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -404,7 +404,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -424,7 +424,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -453,7 +453,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .GetDirectory("project");
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -477,7 +477,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .GetDirectory("project");
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -518,7 +518,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .GetDirectory("project");
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -539,7 +539,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .Root
                 .GetDirectory("project");
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()
                 .Should()
@@ -580,7 +580,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            var cmd = new MigrateCommand()
+            var cmd = new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput();
 
@@ -600,7 +600,7 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithSourceFiles()
                 .Root;
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute();
 

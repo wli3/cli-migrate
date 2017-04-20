@@ -17,8 +17,8 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
                 Accept.ZeroOrOneArgument()
                     .MaterializeAs(o =>
                         new Tools.MigrateCommand.MigrateCommand(
-                            new MigrateCommand.CallStage0DotnetSln(),
-                            new MigrateCommand.CallStage0DotnetNewCommandFactory(),
+                            new MigrateTestCommand.CallStage0DotnetSlnToManipulateSolutionFile(),
+                            new MigrateTestCommand.CallStage0DotnetNewCommandFactory(),
                             o.ValueOrDefault<string>("--template-file"),
                             o.Arguments.FirstOrDefault(),
                             o.ValueOrDefault<string>("--sdk-package-version"),
@@ -57,15 +57,6 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
                 .AppliedOptions
                 .Where(o => o.HasAlias(alias))
                 .Select(o => o.Value<T>())
-                .SingleOrDefault();
-        }
-
-        public static string SingleArgumentOrDefault(this AppliedOption parseResult, string alias)
-        {
-            return parseResult
-                .AppliedOptions
-                .Where(o => o.HasAlias(alias))
-                .Select(o => o.Arguments.Single())
                 .SingleOrDefault();
         }
     }

@@ -3,8 +3,6 @@
 
 using System.Linq;
 using Microsoft.DotNet.Cli.CommandLine;
-using Microsoft.DotNet.Tools.Test.Utilities;
-using Microsoft.DotNet.Tools.MigrateCommand;
 
 namespace Microsoft.DotNet.Tools.Test.Utilities
 {
@@ -16,9 +14,9 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
                 ".NET Migrate Command",
                 Accept.ZeroOrOneArgument()
                     .MaterializeAs(o =>
-                        new Tools.MigrateCommand.MigrateCommand(
-                            new MigrateTestCommand.CallStage0DotnetSlnToManipulateSolutionFile(),
-                            new MigrateTestCommand.CallStage0DotnetNewCommandFactory(),
+                        new MigrateCommand.MigrateCommand(
+                            new CallStage0DotnetSlnToManipulateSolutionFile(),
+                            new CallStage0DotnetNewToAddTemplate(),
                             o.ValueOrDefault<string>("--template-file"),
                             o.Arguments.FirstOrDefault(),
                             o.ValueOrDefault<string>("--sdk-package-version"),

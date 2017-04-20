@@ -14,23 +14,16 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
     {
         private const string c_temporaryDotnetNewMSBuildProjectName = "p";
         private readonly string _projectDirectory;
-        private readonly ICommandFactory _dotnetNewCommandFactory;
+        private readonly ICanCreateDotnetCoreTemplate _dotnetCoreTemplateCreator;
 
         public ProjectRootElement MSBuildProject { get; }
+        public string MSBuildProjectPath => Path.Combine(_projectDirectory, c_temporaryDotnetNewMSBuildProjectName + ".csproj");
 
-        public string MSBuildProjectPath
-        {
-            get
-            {
-                return Path.Combine(_projectDirectory, c_temporaryDotnetNewMSBuildProjectName + ".csproj");
-            }
-        }
-
-        public TemporaryDotnetNewTemplateProject(ICommandFactory dotnetNewCommandFactory)
+        public TemporaryDotnetNewTemplateProject(ICanCreateDotnetCoreTemplate dotnetCoreTemplateCreator)
         {
             _projectDirectory = CreateDotnetNewMSBuild(c_temporaryDotnetNewMSBuildProjectName);
             MSBuildProject = GetMSBuildProject();
-            _dotnetNewCommandFactory = dotnetNewCommandFactory;
+            _dotnetCoreTemplateCreator = dotnetCoreTemplateCreator;
         }
 
         public void Clean()
@@ -52,7 +45,7 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
             }
             Directory.CreateDirectory(tempDir);
 
-            RunCommand("new", new string[] { "console", "-o", tempDir, "--debug:ephemeral-hive", "--no-restore" }, tempDir);
+            _dotnetCoreTemplateCreator.CreateWithWithEphemeralHiveAndNoRestore("console", tempDir, tempDir);
 
             return tempDir;
         }
@@ -63,26 +56,6 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
                 MSBuildProjectPath,
                 ProjectCollection.GlobalProjectCollection,
                 preserveFormatting: true);
-        }
-
-        private void RunCommand(string commandToExecute, IEnumerable<string> args, string workingDirectory)
-        {
-            var command = _dotnetNewCommandFactory
-                   .Create(commandToExecute, args)
-                   .WorkingDirectory(workingDirectory)
-                   .CaptureStdOut()
-                   .CaptureStdErr();
-
-            var commandResult = command.Execute();
-
-            if (commandResult.ExitCode != 0)
-            {
-                MigrationTrace.Instance.WriteLine(commandResult.StdOut);
-                MigrationTrace.Instance.WriteLine(commandResult.StdErr);
-
-                string argList = string.Join(", ", args);
-                throw new GracefulException($"Failed to run {commandToExecute} with args: {argList} ... workingDirectory = {workingDirectory}");
-            }
         }
     }
 }

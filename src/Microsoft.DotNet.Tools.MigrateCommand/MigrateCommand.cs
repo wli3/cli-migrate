@@ -32,11 +32,11 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
         private readonly bool _reportFormatJson;
         private readonly bool _skipBackup;
         private readonly ICanManipulateSolutionFile _solutionFileManipulator;
-        private readonly ICommandFactory _dotnetNewCommandFactory;
+        private readonly ICanCreateDotnetCoreTemplate _dotnetCoreTemplateCreator;
 
         public MigrateCommand(
             ICanManipulateSolutionFile solutionFileManipulator,
-            ICommandFactory dotnetNewCommandFactory,
+            ICanCreateDotnetCoreTemplate dotnetCoreTemplateCreator,
             string templateFile,
             string projectArg,
             string sdkVersion,
@@ -45,10 +45,10 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
             bool skipProjectReferences,
             bool reportFormatJson,
             bool skipBackup
-            )
+        )
         {
             _solutionFileManipulator = solutionFileManipulator;
-            _dotnetNewCommandFactory = dotnetNewCommandFactory;
+            _dotnetCoreTemplateCreator = dotnetCoreTemplateCreator;
             _templateFile = templateFile;
             _projectArg = projectArg ?? Directory.GetCurrentDirectory();
             _workspaceDirectory = File.Exists(_projectArg)
@@ -64,7 +64,7 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
 
         public int Execute()
         {
-            var temporaryDotnetNewProject = new TemporaryDotnetNewTemplateProject(_dotnetNewCommandFactory);
+            var temporaryDotnetNewProject = new TemporaryDotnetNewTemplateProject(_dotnetCoreTemplateCreator);
             var projectsToMigrate = GetProjectsToMigrate(_projectArg);
 
             var msBuildTemplatePath = _templateFile ?? temporaryDotnetNewProject.MSBuildProjectPath;
@@ -107,7 +107,7 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
 
         private void UpdateSolutionFile(MigrationReport migrationReport)
         {
-            if(_slnFile != null)
+            if (_slnFile != null)
             {
                 UpdateSolutionFile(migrationReport, _slnFile);
             }
@@ -147,9 +147,9 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
 
                 var migratedProjectName = report.ProjectName + ".csproj";
                 var csprojPath = Path.Combine(relativeReportPath, migratedProjectName);
-                var solutionContainsCsprojPriorToMigration = slnFile.Projects
-                    .Where(p => p.FilePath == csprojPath)
-                    .Any();
+                var solutionContainsCsprojPriorToMigration = slnFile
+                    .Projects
+                    .Any(p => p.FilePath == csprojPath);
 
                 if (!solutionContainsCsprojPriorToMigration)
                 {
@@ -165,9 +165,9 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
                 foreach (var xprojFileName in projectDirectory.EnumerateFiles("*.xproj"))
                 {
                     var xprojPath = Path.Combine(relativeReportPath, xprojFileName.Name);
-                    var solutionContainsXprojFileToRemove = slnFile.Projects
-                        .Where(p => p.FilePath == xprojPath)
-                        .Any();
+                    var solutionContainsXprojFileToRemove = slnFile
+                        .Projects
+                        .Any(p => p.FilePath == xprojPath);
 
                     if (solutionContainsXprojFileToRemove)
                     {
@@ -403,8 +403,8 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
                     throw new GracefulException(LocalizableStrings.MigrationFailedToFindProjectInGlobalJson);
                 }
             }
-            else if (File.Exists(projectArg) && 
-                string.Equals(Path.GetExtension(projectArg), ".sln", StringComparison.OrdinalIgnoreCase))
+            else if (File.Exists(projectArg) &&
+                     string.Equals(Path.GetExtension(projectArg), ".sln", StringComparison.OrdinalIgnoreCase))
             {
                 projects = GetProjectsFromSolution(projectArg);
 
@@ -506,8 +506,8 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
             foreach (var project in _slnFile.Projects)
             {
                 var projectFilePath = Path.Combine(
-                    _slnFile.BaseDirectory, 
-                    Path.GetDirectoryName(project.FilePath), 
+                    _slnFile.BaseDirectory,
+                    Path.GetDirectoryName(project.FilePath),
                     Project.FileName);
 
                 if (File.Exists(projectFilePath))
@@ -516,6 +516,5 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
                 }
             }
         }
-
     }
 }

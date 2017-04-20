@@ -45,101 +45,45 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         {
             return Execute(args);
         }
+    }
 
-        public class CallStage0DotnetSlnToManipulateSolutionFile : ICanManipulateSolutionFile
+    public class CallStage0DotnetSlnToManipulateSolutionFile : ICanManipulateSolutionFile
+    {
+        public void AddProjectToSolution(string solutionFilePath, string projectFilePath)
         {
-            public void AddProjectToSolution(string solutionFilePath, string projectFilePath)
+            var exitCode = new DotnetCommand().Execute($"sln {solutionFilePath} add {projectFilePath}").ExitCode;
+
+            if (exitCode != 0)
             {
-                var exitCode = new DotnetCommand().Execute($"sln {solutionFilePath} add {projectFilePath}").ExitCode;
-
-                if (exitCode != 0)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-
-            public void RemoveProjectFromSolution(string solutionFilePath, string projectFilePath)
-            {
-                var exitCode = new DotnetCommand().Execute($"sln {solutionFilePath} remove {projectFilePath}").ExitCode;
-
-                if (exitCode != 0)
-                {
-                    throw new InvalidOperationException();
-                }
+                throw new InvalidOperationException();
             }
         }
 
-        public class CallStage0DotnetNewCommandFactory : ICommandFactory
+        public void RemoveProjectFromSolution(string solutionFilePath, string projectFilePath)
         {
-            public ICommand Create(string commandName, IEnumerable<string> args, NuGetFramework framework = null,
-                string configuration = "Debug")
+            var exitCode = new DotnetCommand().Execute($"sln {solutionFilePath} remove {projectFilePath}").ExitCode;
+
+            if (exitCode != 0)
             {
-                return new Stage0DotnetNew(args);
+                throw new InvalidOperationException();
             }
+        }
+    }
 
-            public class Stage0DotnetNew : ICommand
+    public class CallStage0DotnetNewToAddTemplate : ICanCreateDotnetCoreTemplate
+    {
+        public void CreateWithWithEphemeralHiveAndNoRestore(
+            string templateName,
+            string outputDirectory,
+            string workingDirectory)
+        {
+            var result = new NewCommandShim()
+                .WithWorkingDirectory(workingDirectory)
+                .Execute($"{templateName} -o {outputDirectory} --no-restore");
+
+            if (result.ExitCode != 0)
             {
-                private readonly IEnumerable<string> _args;
-                private NewCommand _command;
-
-                public Stage0DotnetNew(IEnumerable<string> args)
-                {
-                    _args = args;
-                    _command = new NewCommand();
-                }
-
-                public CommandResult Execute()
-                {
-                    var exitcode = _command.Execute(string.Join(" ", _args)).ExitCode;
-                    return new CommandResult(null, exitcode, "", "");
-                }
-
-                public ICommand WorkingDirectory(string projectDirectory)
-                {
-                    _command = _command.WithWorkingDirectory(projectDirectory);
-                    return this;
-                }
-
-                public ICommand EnvironmentVariable(string name, string value)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public ICommand CaptureStdOut()
-                {
-                    throw new NotImplementedException();
-                }
-
-                public ICommand CaptureStdErr()
-                {
-                    throw new NotImplementedException();
-                }
-
-                public ICommand ForwardStdOut(TextWriter to = null, bool onlyIfVerbose = false,
-                    bool ansiPassThrough = true)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public ICommand ForwardStdErr(TextWriter to = null, bool onlyIfVerbose = false,
-                    bool ansiPassThrough = true)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public ICommand OnOutputLine(Action<string> handler)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public ICommand OnErrorLine(Action<string> handler)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public CommandResolutionStrategy ResolutionStrategy { get; }
-                public string CommandName { get; }
-                public string CommandArgs { get; }
+                throw new InvalidOperationException();
             }
         }
     }

@@ -209,7 +209,6 @@ namespace Microsoft.DotNet.Migration.Tests
             var workingDirectory = new DirectoryInfo(Path.Combine(projectDirectory.FullName, "TestApp"));
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
-
             new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .Execute()

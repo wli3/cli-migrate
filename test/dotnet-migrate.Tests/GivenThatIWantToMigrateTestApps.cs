@@ -13,6 +13,7 @@ using FluentAssertions;
 using System.IO;
 using BuildCommand = Microsoft.DotNet.Tools.Test.Utilities.BuildCommand;
 using System.Runtime.Loader;
+using Microsoft.DotNet.Cli.Utils;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
@@ -502,10 +503,8 @@ namespace Microsoft.DotNet.Migration.Tests
             VerifyAllMSBuildOutputsRunnable(projectDirectory);
         }
 
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void MigrationOutputsErrorWhenNoProjectsFound(bool useGlobalJson)
+        [Fact]
+        public void MigrationOutputsErrorWhenNoProjectsFounduseGlobalJson()
         {
             var projectDirectory = TestAssets.CreateTestDirectory("Migration_outputs_error_when_no_projects_found");
 
@@ -513,8 +512,7 @@ namespace Microsoft.DotNet.Migration.Tests
 
             string errorMessage = string.Empty;
 
-            if (useGlobalJson)
-            {
+           
                 var globalJson = projectDirectory.GetFile("global.json");
 
                 using (StreamWriter sw = globalJson.CreateText())
@@ -527,27 +525,40 @@ namespace Microsoft.DotNet.Migration.Tests
                 argstr = globalJson.FullName;
 
                 errorMessage = "Unable to find any projects in global.json";
-            }
-            else
-            {
-                argstr = projectDirectory.FullName;
-
-                errorMessage = $"No project.json file found in '{projectDirectory.FullName}'";
-            }
-
-            var result = new MigrateTestCommand()
+        
+            Action runCommand  = () => new MigrateTestCommand()
                 .WithWorkingDirectory(projectDirectory)
                 .ExecuteWithCapturedOutput($"{argstr}");
 
-            // Expecting an error exit code.
-            result.ExitCode.Should().Be(1);
-
-            // Verify the error messages. Note that debug builds also show the call stack, so we search
-            // for the error strings that should be present (rather than an exact match).
-            result.StdErr
+            runCommand.ShouldThrow<GracefulException>()
+                .And
+                .Message
                 .Should()
-                .Contain(errorMessage)
-                .And.Contain("Migration failed.");
+                .Contain("Unable to find any projects in global.json.");
+        }
+
+        [Fact]
+        public void MigrationOutputsErrorWhenNoProjectsFoundDoNotUseGlobalJson()
+        {
+            var projectDirectory = TestAssets.CreateTestDirectory("Migration_outputs_error_when_no_projects_found");
+
+            string argstr = string.Empty;
+
+            string errorMessage = string.Empty;
+
+                argstr = projectDirectory.FullName;
+
+                errorMessage = $"No project.json file found in '{projectDirectory.FullName}'";
+
+            Action runCommand = () => new MigrateTestCommand()
+               .WithWorkingDirectory(projectDirectory)
+               .ExecuteWithCapturedOutput($"{argstr}");
+
+            runCommand.ShouldThrow<GracefulException>()
+                .And
+                .Message
+                .Should()
+                .Contain("No project.json file found");
         }
 
         [RequiresSpecificFrameworkFact("netcoreapp1.0")]

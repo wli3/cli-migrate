@@ -210,7 +210,7 @@ namespace Microsoft.DotNet.Migration.Tests
             var solutionRelPath = Path.Combine("TestApp", "TestApp.sln");
 
             new MigrateTestCommand()
-                .WithWorkingDirectory(projectDirectory)
+                .WithWorkingDirectory(workingDirectory)
                 .Execute()
                 .Should()
                 .Pass();

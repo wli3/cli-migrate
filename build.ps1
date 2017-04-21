@@ -1,6 +1,7 @@
 [cmdletbinding()]
 param(
     [string]$Configuration = "Debug",
+    [string]$Architecture = "x64",
     [Parameter(Position = 0, ValueFromRemainingArguments = $true)]
     $ExtraParameters
 )

@@ -13,7 +13,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
 {
     public sealed class MigrateTestCommand
     {
-        private StringBuilder _stdOut;
+        private readonly StringBuilder _stdOut;
         private string _workingDirectory;
 
         public MigrateTestCommand()
@@ -24,81 +24,24 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         public CommandResult Execute(string args = "")
         {
             var resut = Migrate().Parse("migrate " + args);
-            var MigrateCommand = resut["migrate"].Value<MigrateCommand.MigrateCommand>();
-            var output = new StringWriter();
 
             using (new WorkingDirectory(_workingDirectory))
             {
                 var exitCode = resut["migrate"].Value<MigrateCommand.MigrateCommand>().Execute();
                 return new CommandResult(
-                 new ProcessStartInfo(), exitCode, _stdOut.ToString(), "");
+                    new ProcessStartInfo(), exitCode, _stdOut.ToString(), "");
             }
         }
 
-        public class WorkingDirectory : IDisposable
-        {
-            private string _workingDirectory;
-            private string _backUpCurrentDirectory;
-
-            public WorkingDirectory(string workingDirectory)
-            {
-                _workingDirectory = workingDirectory;
-                _backUpCurrentDirectory = Directory.GetCurrentDirectory();
-
-                if (_workingDirectory != null)
-                {
-                    Directory.SetCurrentDirectory(_workingDirectory);
-                }
-            }
-            public void Dispose()
-            {
-                Directory.SetCurrentDirectory(_backUpCurrentDirectory);
-            }
-        }
-
-        public class ConsoleOutput : IDisposable
-        {
-            private StringWriter stringWriter;
-            private TextWriter originalOutput;
-
-            public ConsoleOutput()
-            {
-                stringWriter = new StringWriter();
-                originalOutput = Console.Out;
-                Console.SetOut(stringWriter);
-            }
-
-            public string GetOuput()
-            {
-                return stringWriter.ToString();
-            }
-
-            public void Dispose()
-            {
-                Console.SetOut(originalOutput);
-                stringWriter.Dispose();
-            }
-        }
-
-        public void SetConsoleOut(TextWriter newOut)
-        {
-            Console.SetOut(newOut);
-        }
-        public void SetConsoleError(TextWriter newError)
-        {
-            Console.SetError(newError);
-        }
         public MigrateTestCommand WithWorkingDirectory(DirectoryInfo withWorkingDirectory)
         {
-            this._workingDirectory = withWorkingDirectory.FullName;
-            //  Directory.SetCurrentDirectory(withWorkingDirectory.FullName);
+            _workingDirectory = withWorkingDirectory.FullName;
             return this;
         }
 
         public MigrateTestCommand WithWorkingDirectory(string withWorkingDirectory)
         {
-            this._workingDirectory = withWorkingDirectory;
-            //  Directory.SetCurrentDirectory(withWorkingDirectory);
+            _workingDirectory = withWorkingDirectory;
             return this;
         }
 
@@ -108,41 +51,62 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         }
 
         public Cli.CommandLine.Command Migrate() =>
-          Create.Command(
-              "migrate",
-              ".NET Migrate Command",
-              Accept.ZeroOrOneArgument()
-                  .MaterializeAs(o =>
-                      new MigrateCommand.MigrateCommand(
-                          new CallStage0DotnetSlnToManipulateSolutionFile(),
-                          new CallStage0DotnetNewToAddTemplate(),
-                          o.ValueOrDefault<string>("--template-file"),
-                          o.Arguments.FirstOrDefault(),
-                          o.ValueOrDefault<string>("--sdk-package-version"),
-                          o.ValueOrDefault<string>("--xproj-file"),
-                          o.ValueOrDefault<string>("--report-file"),
-                          o.ValueOrDefault<bool>("--skip-project-references"),
-                          o.ValueOrDefault<bool>("--format-report-file-json"),
-                          o.ValueOrDefault<bool>("--skip-backup"), (l) => _stdOut.Append(l)))
-                  .With(name: "",
-                      description: ""),
-              Create.Option("-t|--template-file",
-                  "",
-                  Accept.ExactlyOneArgument()),
-              Create.Option("-v|--sdk-package-version",
-                  "",
-                  Accept.ExactlyOneArgument()),
-              Create.Option("-x|--xproj-file",
-                  "",
-                  Accept.ExactlyOneArgument()),
-              Create.Option("-s|--skip-project-references",
-                  ""),
-              Create.Option("-r|--report-file",
-                  "",
-                  Accept.ExactlyOneArgument()),
-              Create.Option("--format-report-file-json",
-                  ""),
-              Create.Option("--skip-backup",
-                  ""));
+            Create.Command(
+                "migrate",
+                ".NET Migrate Command",
+                Accept.ZeroOrOneArgument()
+                    .MaterializeAs(o =>
+                        new MigrateCommand.MigrateCommand(
+                            new CallStage0DotnetSlnToManipulateSolutionFile(),
+                            new CallStage0DotnetNewToAddTemplate(),
+                            o.ValueOrDefault<string>("--template-file"),
+                            o.Arguments.FirstOrDefault(),
+                            o.ValueOrDefault<string>("--sdk-package-version"),
+                            o.ValueOrDefault<string>("--xproj-file"),
+                            o.ValueOrDefault<string>("--report-file"),
+                            o.ValueOrDefault<bool>("--skip-project-references"),
+                            o.ValueOrDefault<bool>("--format-report-file-json"),
+                            o.ValueOrDefault<bool>("--skip-backup"), (l) => _stdOut.Append(l)))
+                    .With(name: "",
+                        description: ""),
+                Create.Option("-t|--template-file",
+                    "",
+                    Accept.ExactlyOneArgument()),
+                Create.Option("-v|--sdk-package-version",
+                    "",
+                    Accept.ExactlyOneArgument()),
+                Create.Option("-x|--xproj-file",
+                    "",
+                    Accept.ExactlyOneArgument()),
+                Create.Option("-s|--skip-project-references",
+                    ""),
+                Create.Option("-r|--report-file",
+                    "",
+                    Accept.ExactlyOneArgument()),
+                Create.Option("--format-report-file-json",
+                    ""),
+                Create.Option("--skip-backup",
+                    ""));
+
+        public class WorkingDirectory : IDisposable
+        {
+            private readonly string _backUpCurrentDirectory;
+
+            public WorkingDirectory(string workingDirectory)
+            {
+                var workingDirectory1 = workingDirectory;
+                _backUpCurrentDirectory = Directory.GetCurrentDirectory();
+
+                if (workingDirectory1 != null)
+                {
+                    Directory.SetCurrentDirectory(workingDirectory1);
+                }
+            }
+
+            public void Dispose()
+            {
+                Directory.SetCurrentDirectory(_backUpCurrentDirectory);
+            }
+        }
     }
 }

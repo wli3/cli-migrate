@@ -1,7 +1,6 @@
 [cmdletbinding()]
 param(
     [string]$Configuration = "Debug",
-    [string]$Architecture = "x64",
     [Parameter(Position = 0, ValueFromRemainingArguments = $true)]
     $ExtraParameters
 )
@@ -18,7 +17,7 @@ $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = 1
 
 # Use a repo-local install directory (but not the artifacts directory because that gets cleaned a lot
 if (!$env:DOTNET_INSTALL_DIR_PJ) {
-    $env:DOTNET_INSTALL_DIR_PJ = "$RepoRoot\.dotnet_stage0PJ\$Architecture"
+    $env:DOTNET_INSTALL_DIR_PJ = "$RepoRoot\.dotnet_stage0PJ"
 }
 
 if (!(Test-Path $env:DOTNET_INSTALL_DIR_PJ)) {

@@ -64,12 +64,11 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             }
         }
 
-
         private static string GetPjDotnetPath()
         {
             return new DirectoryInfo(Path.Combine(RepoRoot, ".dotnet_stage0PJ"))
-                .EnumerateFiles("dotnet*")
-                .First().FullName;
+                .GetFiles("dotnet*").First()
+                .FullName;
         }
     }
 }

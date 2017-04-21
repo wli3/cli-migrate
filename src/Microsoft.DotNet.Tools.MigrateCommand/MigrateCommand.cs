@@ -33,6 +33,7 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
         private readonly bool _skipBackup;
         private readonly ICanManipulateSolutionFile _solutionFileManipulator;
         private readonly ICanCreateDotnetCoreTemplate _dotnetCoreTemplateCreator;
+        private readonly Action<string> _reporterWriteLine;
 
         public MigrateCommand(
             ICanManipulateSolutionFile solutionFileManipulator,
@@ -44,7 +45,8 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
             string reportFile,
             bool skipProjectReferences,
             bool reportFormatJson,
-            bool skipBackup
+            bool skipBackup,
+            Action<string> reporterWriteLine = null
         )
         {
             if (solutionFileManipulator == null)
@@ -69,6 +71,7 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
             _reportFile = reportFile;
             _reportFormatJson = reportFormatJson;
             _skipBackup = skipBackup;
+            _reporterWriteLine = reporterWriteLine ?? Reporter.Output.WriteLine;
         }
 
         public int Execute()
@@ -257,7 +260,7 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
 
             backupPlan.PerformBackup();
 
-            Reporter.Output.WriteLine(string.Format(
+            _reporterWriteLine(string.Format(
                 LocalizableStrings.MigrateFilesBackupLocation,
                 backupPlan.RootBackupDirectory.FullName));
         }
@@ -284,20 +287,20 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
                 var errorContent = GetProjectReportErrorContent(projectMigrationReport, colored: true);
                 var successContent = GetProjectReportSuccessContent(projectMigrationReport, colored: true);
                 var warningContent = GetProjectReportWarningContent(projectMigrationReport, colored: true);
-                Reporter.Output.WriteLine(warningContent);
+                _reporterWriteLine(warningContent);
                 if (!string.IsNullOrEmpty(errorContent))
                 {
                     Reporter.Error.WriteLine(errorContent);
                 }
                 else
                 {
-                    Reporter.Output.WriteLine(successContent);
+                    _reporterWriteLine(successContent);
                 }
             }
 
-            Reporter.Output.WriteLine(GetReportSummary(migrationReport));
+            _reporterWriteLine(GetReportSummary(migrationReport));
 
-            Reporter.Output.WriteLine(LocalizableStrings.MigrationAdditionalHelp);
+            _reporterWriteLine(LocalizableStrings.MigrationAdditionalHelp);
         }
 
         private string GetReportContent(MigrationReport migrationReport, bool colored = false)

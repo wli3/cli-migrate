@@ -4,6 +4,8 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text;
 using Microsoft.DotNet.Cli.CommandLine;
 using Microsoft.DotNet.Cli.Utils;
 
@@ -11,28 +13,23 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
 {
     public sealed class MigrateTestCommand
     {
-        private StreamForwarder _stdOut;
-        private StreamForwarder _stdErr;
+        private StringBuilder _stdOut;
 
         public MigrateTestCommand()
         {
-            _stdOut = new StreamForwarder();
-            _stdErr = new StreamForwarder();
+            _stdOut = new StringBuilder();
         }
 
         public CommandResult Execute(string args = "")
         {
-            var resut = MigrateCommandParser.Migrate().Parse("migrate " + args);
+            var resut = Migrate().Parse("migrate " + args);
             var MigrateCommand = resut["migrate"].Value<MigrateCommand.MigrateCommand>();
             var output = new StringWriter();
 
-            MigrateCommand.AddTraceEvent((c) => output.Write(c));
-
             var exitCode = resut["migrate"].Value<MigrateCommand.MigrateCommand>().Execute();
 
-            var otuput = output.ToString();
             return new CommandResult(
-                  new ProcessStartInfo(), exitCode, otuput, "");
+                  new ProcessStartInfo(), exitCode, _stdOut.ToString(), "");
         }
 
         public class ConsoleOutput : IDisposable
@@ -83,5 +80,43 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         {
             return Execute(args);
         }
+
+        public Cli.CommandLine.Command Migrate() =>
+          Create.Command(
+              "migrate",
+              ".NET Migrate Command",
+              Accept.ZeroOrOneArgument()
+                  .MaterializeAs(o =>
+                      new MigrateCommand.MigrateCommand(
+                          new CallStage0DotnetSlnToManipulateSolutionFile(),
+                          new CallStage0DotnetNewToAddTemplate(),
+                          o.ValueOrDefault<string>("--template-file"),
+                          o.Arguments.FirstOrDefault(),
+                          o.ValueOrDefault<string>("--sdk-package-version"),
+                          o.ValueOrDefault<string>("--xproj-file"),
+                          o.ValueOrDefault<string>("--report-file"),
+                          o.ValueOrDefault<bool>("--skip-project-references"),
+                          o.ValueOrDefault<bool>("--format-report-file-json"),
+                          o.ValueOrDefault<bool>("--skip-backup"), (l) => _stdOut.Append(l)))
+                  .With(name: "",
+                      description: ""),
+              Create.Option("-t|--template-file",
+                  "",
+                  Accept.ExactlyOneArgument()),
+              Create.Option("-v|--sdk-package-version",
+                  "",
+                  Accept.ExactlyOneArgument()),
+              Create.Option("-x|--xproj-file",
+                  "",
+                  Accept.ExactlyOneArgument()),
+              Create.Option("-s|--skip-project-references",
+                  ""),
+              Create.Option("-r|--report-file",
+                  "",
+                  Accept.ExactlyOneArgument()),
+              Create.Option("--format-report-file-json",
+                  ""),
+              Create.Option("--skip-backup",
+                  ""));
     }
 }

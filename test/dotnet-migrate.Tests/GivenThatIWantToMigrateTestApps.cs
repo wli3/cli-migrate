@@ -175,7 +175,9 @@ namespace Microsoft.DotNet.Migration.Tests
                 .WithEmptyGlobalJson()
                 .Root;
 
-            File.Copy("NuGet.tempaspnetpatch.config", projectDirectory.GetFile("NuGet.Config").FullName);
+            File.Copy(
+                Path.Combine(Directory.GetCurrentDirectory(), "NuGet.tempaspnetpatch.config"), 
+                projectDirectory.GetFile("NuGet.Config").FullName);
 
             MigrateProject(new[] {projectDirectory.FullName});
 
@@ -743,7 +745,9 @@ namespace Microsoft.DotNet.Migration.Tests
 
         private MigratedBuildComparisonData GetComparisonData(DirectoryInfo projectDirectory)
         {
-            File.Copy("NuGet.tempaspnetpatch.config", projectDirectory.GetFile("NuGet.Config").FullName);
+            File.Copy(
+                Path.Combine(Directory.GetCurrentDirectory(), "NuGet.tempaspnetpatch.config"),
+                projectDirectory.GetFile("NuGet.Config").FullName);
 
             RestoreProjectJson(projectDirectory);
 

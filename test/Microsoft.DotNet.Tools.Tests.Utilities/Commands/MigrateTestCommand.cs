@@ -14,6 +14,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
     public sealed class MigrateTestCommand
     {
         private StringBuilder _stdOut;
+        private string _workingDirectory;
 
         public MigrateTestCommand()
         {
@@ -26,10 +27,33 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
             var MigrateCommand = resut["migrate"].Value<MigrateCommand.MigrateCommand>();
             var output = new StringWriter();
 
-            var exitCode = resut["migrate"].Value<MigrateCommand.MigrateCommand>().Execute();
+            using (new WorkingDirectory(_workingDirectory))
+            {
+                var exitCode = resut["migrate"].Value<MigrateCommand.MigrateCommand>().Execute();
+                return new CommandResult(
+                 new ProcessStartInfo(), exitCode, _stdOut.ToString(), "");
+            }
+        }
 
-            return new CommandResult(
-                  new ProcessStartInfo(), exitCode, _stdOut.ToString(), "");
+        public class WorkingDirectory : IDisposable
+        {
+            private string _workingDirectory;
+            private string _backUpCurrentDirectory;
+
+            public WorkingDirectory(string workingDirectory)
+            {
+                _workingDirectory = workingDirectory;
+                _backUpCurrentDirectory = Directory.GetCurrentDirectory();
+
+                if (_workingDirectory != null)
+                {
+                    Directory.SetCurrentDirectory(_workingDirectory);
+                }
+            }
+            public void Dispose()
+            {
+                Directory.SetCurrentDirectory(_backUpCurrentDirectory);
+            }
         }
 
         public class ConsoleOutput : IDisposable
@@ -66,13 +90,15 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         }
         public MigrateTestCommand WithWorkingDirectory(DirectoryInfo withWorkingDirectory)
         {
-            Directory.SetCurrentDirectory(withWorkingDirectory.FullName);
+            this._workingDirectory = withWorkingDirectory.FullName;
+            //  Directory.SetCurrentDirectory(withWorkingDirectory.FullName);
             return this;
         }
 
         public MigrateTestCommand WithWorkingDirectory(string withWorkingDirectory)
         {
-            Directory.SetCurrentDirectory(withWorkingDirectory);
+            this._workingDirectory = withWorkingDirectory;
+            //  Directory.SetCurrentDirectory(withWorkingDirectory);
             return this;
         }
 

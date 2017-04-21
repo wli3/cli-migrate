@@ -93,7 +93,7 @@ if [ ! -d "$DOTNET_INSTALL_DIR" ]; then
     mkdir $DOTNET_INSTALL_DIR
 fi
 
-curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --install-dir $DOTNET_INSTALL_DIR --channel master
+curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --install-dir $DOTNET_INSTALL_DIR --channel master -version 1.0.3
 
 PATH="$DOTNET_INSTALL_DIR:$PATH"
 
